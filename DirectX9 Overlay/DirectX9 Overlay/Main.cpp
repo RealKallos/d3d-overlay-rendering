@@ -1,6 +1,11 @@
 #include "Header.h"
 HWND hwnd;
 
+// 전체화면 해상도
+int ScreenWidth = GetSystemMetrics(SM_CXSCREEN);
+int ScreenHeight = GetSystemMetrics(SM_CYSCREEN);
+MARGINS margins = { 0, 0, ScreenWidth, ScreenHeight };
+
 LRESULT CALLBACK WindowProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam) {
 	const MARGINS margin = { 0, 0, Render.RenderWidth, Render.RenderHeight };
 
@@ -23,8 +28,9 @@ LRESULT CALLBACK WindowProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lPara
 
 int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine, int nCmdShow) {
 
+	/* 필요없음
 	// Define Window Name
-	auto window_name = "osu!";
+	auto window_name = "notepad";
 
 	// Find Window
 	auto WindowHWND = FindWindow(NULL, window_name);
@@ -38,9 +44,10 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 		// Failed to Find Target.
 		ExitProcess(0);
 	}
+	*/
 
-	Render.RenderWidth = wndRc.right - wndRc.left;
-	Render.RenderHeight = wndRc.bottom - wndRc.top;
+	Render.RenderWidth = ScreenWidth;
+	Render.RenderHeight = ScreenHeight;
 
 	auto centerX = (GetSystemMetrics(SM_CXSCREEN) / 2) - (Render.RenderWidth / 2);
 	auto centerY = (GetSystemMetrics(SM_CYSCREEN) / 2) - (Render.RenderHeight / 2);
@@ -59,11 +66,14 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 
 	RegisterClassEx(&wc);
 
-	hwnd = CreateWindowEx(0, "WindowClass", "", WS_EX_TOPMOST | WS_POPUP, wndRc.left, wndRc.top, Render.RenderWidth, Render.RenderHeight, NULL, NULL, hInstance, NULL);
+	hwnd = CreateWindowEx(0, "WindowClass", "", WS_EX_TOPMOST | WS_POPUP, 0, 0, Render.RenderWidth, Render.RenderHeight, NULL, NULL, hInstance, NULL);
 
 	SetWindowLong(hwnd, GWL_EXSTYLE, (int)GetWindowLong(hwnd, GWL_EXSTYLE) | WS_EX_LAYERED | WS_EX_TRANSPARENT);
 
+	/* 레거시 transparent
 	SetLayeredWindowAttributes(hwnd, RGB(0, 0, 0), 255, ULW_COLORKEY | LWA_ALPHA);
+	*/
+	DwmExtendFrameIntoClientArea(hwnd, &margins);
 
 
 	ShowWindow(hwnd, nCmdShow);
@@ -72,24 +82,18 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 
 	MSG msg;
 
-	SetWindowPos(FindWindow(NULL, window_name), HWND_NOTOPMOST, 0, 0, 0, 0, SWP_NOMOVE | SWP_NOSIZE);
+	SetWindowPos(hwnd, HWND_NOTOPMOST, 0, 0, 0, 0, SWP_NOMOVE | SWP_NOSIZE);
 
 	while (true)
 	{
-		auto WindowHWND = FindWindow(NULL, window_name);
-
-		if (!WindowHWND) {
-			ExitProcess(0);
-		}
 #if 1
-		GetWindowRect(WindowHWND, &wndRc);
 
-		Render.RenderWidth = wndRc.right - wndRc.left;
-		Render.RenderHeight = wndRc.bottom - wndRc.top;
+		Render.RenderWidth = ScreenWidth;
+		Render.RenderHeight = ScreenHeight;
 #endif
-		MoveWindow(hwnd, wndRc.left, wndRc.top, Render.RenderWidth, Render.RenderHeight, true);
+		MoveWindow(hwnd, 0, 0, Render.RenderWidth, Render.RenderHeight, true);
 
-		SetWindowPos(hwnd, HWND_TOPMOST, wndRc.left, wndRc.top, Render.RenderWidth, Render.RenderHeight, SWP_NOMOVE | SWP_NOSIZE);
+		SetWindowPos(hwnd, HWND_TOPMOST, 0, 0, Render.RenderWidth, Render.RenderHeight, SWP_NOMOVE | SWP_NOSIZE);
 
 		Render.render();
 
