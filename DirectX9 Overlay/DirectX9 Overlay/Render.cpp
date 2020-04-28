@@ -2,6 +2,7 @@
 
 cRender Render;
 
+/*
 void cRender::Text(char *text, int x, int y, int orientation, DWORD color, ID3DXFont* pFont)
 {
 	RECT rect = { x, y, x + 120, y + 16 };
@@ -19,7 +20,7 @@ void cRender::Text(char *text, int x, int y, int orientation, DWORD color, ID3DX
 		break;
 	}
 }
-
+*/
 
 void cRender::initFonts() {
 
@@ -62,16 +63,6 @@ void cRender::draw_outlined_rect(float x, float y, float w, float h, unsigned lo
 
 void cRender::draw_line(float x0, float y0, float x1, float y1, unsigned long color)
 {
-	/*D3DTLVERTEX qV[ 2 ] = {
-		{ float(x0), float(y0), 0.f, 1.f, color },
-		{ float(x1), float(y1), 0.f, 1.f, color },
-	};
-
-	m_device->SetRenderState(D3DRS_ALPHABLENDENABLE, true);
-	m_device->SetRenderState(D3DRS_DESTBLEND, D3DBLEND_INVSRCALPHA);
-	m_device->SetFVF(D3DFVF_XYZRHW | D3DFVF_DIFFUSE | D3DFVF_TEX1);
-	m_device->SetTexture(0, nullptr);
-	m_device->DrawPrimitiveUP(D3DPT_LINELIST, 2, qV, sizeof(D3DTLVERTEX));*/
 
 	D3DXVECTOR2 lines[2] = {
 		D3DXVECTOR2(x0, y0),
@@ -105,20 +96,6 @@ void cRender::draw_filled_rect(float x, float y, float w, float h, unsigned long
 	d3dev->SetFVF(D3DFVF_XYZRHW | D3DFVF_DIFFUSE | D3DFVF_TEX1);
 	d3dev->SetTexture(0, nullptr);
 	d3dev->DrawPrimitiveUP(D3DPT_TRIANGLESTRIP, 2, qV, sizeof(D3DTLVERTEX));
-}
-
-void cRender::DrawHealthbars(float PosX, float PosY, float height, float Value1, unsigned long color)
-{
-	int HealthR = 0, HealthG = 0, HealthB = 0; // Lets make some integers so we can use them for the healthbar. What we will be using this for is to change the color of the healthbar according to the damage done to the enemy.
-
-	float Value2 = static_cast<float>(Value1) / 100.f * height;
-	int Value = static_cast<int>(Value2);
-
-	if (Value1 > 0 && Value1 < 101) // if Value is greater then 75 and not greater then 90 draw the health has a darker shade of green.
-	{
-		draw_rect(PosX - 1, PosY - 1, 5, height, D3DCOLOR_RGBA(0, 0, 0, 255));
-		draw_filled_rect(PosX, PosY, 3, Value - 1, color);
-	}
 }
 
 void cRender::DrawCircle(int X, int Y, int radius, int numSides, DWORD color) {
@@ -232,7 +209,7 @@ void cRender::render() {
 	}
 
 	// Call Rendering here.
-	Text((char*)"kitto d3d overlay", 10, + 50, lefted, D3DCOLOR_RGBA(255, 0, 0, 255), Tahoma);
+	//Text((char*)"kitto d3d overlay", 10, + 50, lefted, D3DCOLOR_RGBA(255, 0, 0, 255), Tahoma);
 
 
 	d3ddev->EndScene();    // ends the 3D scene

@@ -11,8 +11,6 @@ public:
 
 	void draw_filled_rect(float x, float y, float w, float h, unsigned long color);
 
-	void DrawHealthbars(float PosX, float PosY, float height, float Value1, unsigned long color);
-
 	void DrawCircle(int X, int Y, int radius, int numSides, DWORD color);
 
 	void FillArea(float x, float y, float width, float height, D3DCOLOR color);
