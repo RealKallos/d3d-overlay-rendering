@@ -1,4 +1,5 @@
 #include "Header.h"
+#include "math.h"
 
 cRender Render;
 
@@ -27,7 +28,8 @@ void cRender::initFonts() {
 	IDirect3DDevice9* pDevice;
 	pDevice = d3ddev;
 
-	D3DXCreateFont(pDevice, 20, 0, FW_BOLD, 1, 0, DEFAULT_CHARSET, OUT_DEFAULT_PRECIS, ANTIALIASED_QUALITY, DEFAULT_PITCH, "Tahoma", &Tahoma);
+	//D3DXCreateFont(pDevice, 20, 0, FW_BOLD, 1, 0, DEFAULT_CHARSET, OUT_DEFAULT_PRECIS, ANTIALIASED_QUALITY, DEFAULT_PITCH, "Tahoma", &Tahoma);
+	D3DXCreateFontA(d3dev, 12, NULL, FW_BOLD, 1, FALSE, DEFAULT_CHARSET, OUT_DEFAULT_PRECIS, ANTIALIASED_QUALITY, DEFAULT_PITCH | FF_DONTCARE, "Tahoma", &d3Font);
 }
 
 void cRender::initD3D(HWND hwnd)
@@ -210,6 +212,40 @@ void cRender::render() {
 
 	// Call Rendering here.
 	//Text((char*)"kitto d3d overlay", 10, + 50, lefted, D3DCOLOR_RGBA(255, 0, 0, 255), Tahoma);
+
+	unsigned long Blue = D3DCOLOR_RGBA(65, 135, 245, 255);
+	unsigned long Red = D3DCOLOR_RGBA(245, 135, 65, 255);
+	unsigned long Green = D3DCOLOR_RGBA(135, 245, 65, 255);
+
+	draw_text("Daegu University", 10, +50, D3DCOLOR_RGBA(255, 0, 0, 255), 0, 1, d3Font);
+
+	draw_text("opensource software", 10, +65, D3DCOLOR_RGBA(100, 100, 255, 255), 0, 1, d3Font);
+
+	draw_text("21629922 È²ÈñÀç", 10, +80, D3DCOLOR_RGBA(0, 255, 0, 255), 0, 1, d3Font);
+
+	draw_outlined_rect(10, 110, 30, 30, Blue);
+	draw_text("Draw_outlined_rect", 60, 110, D3DCOLOR_RGBA(0, 255, 0, 255), 0, 1, d3Font);
+
+	draw_line(10, 160, 50, 160, Blue);
+	draw_text("draw_line", 60, 160, D3DCOLOR_RGBA(0, 255, 0, 255), 0, 1, d3Font);
+
+	draw_rect(10, 210, 30, 30, Blue);
+	draw_text("draw_rect", 60, 210, D3DCOLOR_RGBA(0, 255, 0, 255), 0, 1, d3Font);
+
+	draw_filled_rect(10, 260, 30, 30, Blue);
+	draw_text("draw_filled_rect", 60, 260, D3DCOLOR_RGBA(0, 255, 0, 255), 0, 1, d3Font);
+
+	DrawCircle(15, 320, 30, 10, Blue);
+	draw_text("DrawCircle", 60, 320, D3DCOLOR_RGBA(0, 255, 0, 255), 0, 1, d3Font);
+
+	FillArea(10, 360, 30, 30, Blue);
+	draw_text("FillArea", 60, 360, D3DCOLOR_RGBA(0, 255, 0, 255), 0, 1, d3Font);
+
+	FillRectangle(10, 410, 30, 30, Blue);
+	draw_text("FillRectangle", 60, 410, D3DCOLOR_RGBA(0, 255, 0, 255), 0, 1, d3Font);
+
+	DrawBox(5, 460, 60, 60, Blue);
+	draw_text("DrawBox", 60, 460, D3DCOLOR_RGBA(0, 255, 0, 255), 0, 1, d3Font);
 
 
 	d3ddev->EndScene();    // ends the 3D scene
