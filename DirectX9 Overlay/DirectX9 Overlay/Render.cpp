@@ -29,7 +29,7 @@ void cRender::initFonts() {
 	pDevice = d3ddev;
 
 	//D3DXCreateFont(pDevice, 20, 0, FW_BOLD, 1, 0, DEFAULT_CHARSET, OUT_DEFAULT_PRECIS, ANTIALIASED_QUALITY, DEFAULT_PITCH, "Tahoma", &Tahoma);
-	D3DXCreateFontA(d3dev, 12, NULL, FW_BOLD, 1, FALSE, DEFAULT_CHARSET, OUT_DEFAULT_PRECIS, ANTIALIASED_QUALITY, DEFAULT_PITCH | FF_DONTCARE, "Tahoma", &d3Font);
+	D3DXCreateFontA(d3ddev, 12, NULL, FW_BOLD, 1, FALSE, DEFAULT_CHARSET, OUT_DEFAULT_PRECIS, ANTIALIASED_QUALITY, DEFAULT_PITCH | FF_DONTCARE, "Tahoma", &d3Font);
 }
 
 void cRender::initD3D(HWND hwnd)
@@ -221,7 +221,7 @@ void cRender::render() {
 
 	draw_text("opensource software", 10, +65, D3DCOLOR_RGBA(100, 100, 255, 255), 0, 1, d3Font);
 
-	draw_text("21629922 È²ÈñÀç", 10, +80, D3DCOLOR_RGBA(0, 255, 0, 255), 0, 1, d3Font);
+	draw_text("21629922 ÃˆÂ²ÃˆÃ±Ã€Ã§", 10, +80, D3DCOLOR_RGBA(0, 255, 0, 255), 0, 1, d3Font);
 
 	draw_outlined_rect(10, 110, 30, 30, Blue);
 	draw_text("Draw_outlined_rect", 60, 110, D3DCOLOR_RGBA(0, 255, 0, 255), 0, 1, d3Font);
